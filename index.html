@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    
+    <link rel="stylesheet" href="css/visualizer.css">
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
@@ -29,6 +30,11 @@
             v-if="view == 'audioPlay'" 
             :change-view="changeView">
         </audio-play-component>
+
+        <visualizer-component 
+            v-if="view == 'visualizer'" 
+            :change-view="changeView">
+        </visualizer-component>
         
     </div> 
 
@@ -41,6 +47,7 @@
     <script src="components/navbar.js"></script>
     <script src="components/main.js"></script>
     <script src="components/audioplay.js"></script>
+    <script src="components/visualizer.js"></script>
     
     <!-- vue instance -->
     <script>
@@ -51,7 +58,7 @@
 
             el : '#app',
             data : {
-                view : 'audioPlay',
+                view : 'visualizer',
 
             },
             computed: {
