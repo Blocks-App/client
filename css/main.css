@@ -5,7 +5,7 @@ html {
   height:100%;
 }
 * {
-  background-color: white;
+  background-color: #f2f2f2;
   margin: 0;
   color:black;
 }
@@ -36,5 +36,40 @@ html {
   background-color: rgba(162, 162, 201,1)
 }
 .song-detail h3, h4 {
-  background-color: rgba(162, 162, 201,1)
+  background-color: rgb(98, 98, 138)
 }
+.songControl {
+  position:relative;
+  left:-14px;
+  top: 40px;
+}
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 7px 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+} 
