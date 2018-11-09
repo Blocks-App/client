@@ -36,5 +36,10 @@ html {
   background-color: rgba(162, 162, 201,1)
 }
 .song-detail h3, h4 {
-  background-color: rgba(162, 162, 201,1)
+  background-color: rgb(98, 98, 138)
+}
+.songControl {
+  position:relative;
+  left:-14px;
+  top: 80px;
 }

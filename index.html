@@ -45,13 +45,11 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" v-model="search">
               </form>
             </div>
-            <div>
-              <h5>Whats New</h5>
-            </div>
+           
             <br>
             <div id="uploadDiv" >
               <label for="file">Upload Song:</label>
-              <form id="formUpload">
+              <form id="formUpload" v-on:submit.prevent="uploadSong">
                 <input type="file" id="file" name="file" accept="audio/*">
                 <input type="text" name="title" placeholder="song title">
                 <input type="text" name="artist" placeholder="artist">
@@ -69,6 +67,8 @@
               <div class="row">
                 <div class="song col-lg-3 col-md-4 col-sm-6 mr-5 ml-5 mt-3 mb-3" v-for="song in filteredSongs">
                   <div class="song-detail">
+                    <!-- <img v-bind:src="song.coverUrl"> -->
+                
                     <h3>{{song.title}}</h3>
                   </div>
                   <div class="song-detail">
@@ -76,10 +76,13 @@
                   </div>
                   <div class="song-detail">
                     <h4>{{song.rating}}</h4>
-                  </div>
-                  <i class="far fa-3x fa-pause-circle" v-if="seen" v-on:click="seen = !seen"></i>
-                  <i class="far fa-3x fa-play-circle" v-if="!seen" v-on:click="seen = !seen"></i>
+                 -->
+                  <audio controls class="songControl">
+                      <source v-bind:src="song.audioUrl" type="audio/mp3">
+                  </audio>  
                 </div>
+                  
+              
               </div>
             </div>
       
@@ -112,16 +115,7 @@
                 seen:false
             },
             created () {
-              let data=[{
-                  title:'hey jude',
-                  artist: 'beatles',
-                  rating: 5
-                },{
-                  title:'i dont wanna miss a thing',
-                  artist: 'aerosmith',
-                  rating: 5
-                }]
-                data.forEach(song=>this.songs.push(song))
+              this.getSongs();
             },
             computed: {
               filteredSongs() {
@@ -134,24 +128,38 @@
 
             },
             methods: {
+               
                 toggleUpload (){
                   $("#uploadDiv").toggle();
                 },
                 changeView(viewName) {
                     this.view = viewName
+                },
+                getSongs() {
+                  axios.get('http://localhost:3000/song')
+                  .then(res => {
+                   res.data.forEach(song => this.songs.push(song))
+                  })
+                  .catch(err => {
+                    console.log(err.response)
+                  })
+                },
+                uploadSong() {
+                  let song= {
+                    title: $("#title").val(),
+                    artist:$("#artist").val(),
+                    genre:$("#genre").val(),
+                    coverUrl:$("coverUrl").val(),
+                    audioUrl:$("audioUrl").val()
+                  };
+                  axios({
+                    method: 'post',
+                    url: 'http://localhost:3000/song',
+                    data: song
+                   })
+                   .then(song => $("#msg").html('Successfully uploaded the song.'))
+                   .catch(err=> $("#msg").html('There was a problem uploading the song.'))
                 }
-                // getSongs() {
-                //   axios.get('http://....')
-                //   .then(res => {
-                //    console.log(res)
-                //   })
-                //   .catch(err => {
-                //     console.log(err.response)
-                //   })
-                // }
-            },
-            watch: {
-                
             }
         })
     </script>
