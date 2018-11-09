@@ -18,6 +18,9 @@ Vue.component('mainComponent', {
     created() {
        
     },
+    computed: {
+    
+    },
     methods: {
      
     },

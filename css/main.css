@@ -1,0 +1,40 @@
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  display: block;
+  height:100%;
+}
+* {
+  background-color: white;
+  margin: 0;
+  color:black;
+}
+.flex{
+  flex: 0 0 auto
+}
+.container-main {
+  display: flex;
+  height:100%;
+  background-color: rgba(66, 134, 243, 0.274);
+}
+.access-bar-left {
+  width: 25%;
+  height: 100%;
+  padding: 0 10px;
+
+}
+
+.main-space-right {
+  width: 75%;
+  background-color: #f1f1f1;
+  height: 100%;
+  position: relative;
+}
+.song {
+  height: 300px;
+  min-width:300px;
+  background-color: rgba(162, 162, 201,1)
+}
+.song-detail h3, h4 {
+  background-color: rgba(162, 162, 201,1)
+}
