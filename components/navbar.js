@@ -14,7 +14,7 @@ let navbarTemplate = `<div id="navbarContainer">
                     <a class="nav-link" href="" @click.prevent="changeView('main')">Home <span class="sr-only">(current)</span></a>
                 </li>
               
-                <a class="nav-link" @click.prevent="changeView('block')" href="">Upload Song</a>
+                <a class="nav-link" @click.prevent="toggleUpload()" href="">Upload Song</a>
             </li>
             </ul>
             
@@ -31,7 +31,7 @@ let navbarTemplate = `<div id="navbarContainer">
 Vue.component('navbar-component', {
 
     template : navbarTemplate,
-    props: ['changeView'],
+    props: ['changeView','toggleUpload'],
     data: {
       searchSong: ''
     },
