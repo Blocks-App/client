@@ -68,7 +68,6 @@
                 <div class="song col-lg-3 col-md-4 col-sm-6 mr-5 ml-5 mt-3 mb-3" v-for="song in filteredSongs">
                   <div class="song-detail">
                     <!-- <img v-bind:src="song.coverUrl"> -->
-                
                     <h3>{{song.title}}</h3>
                   </div>
                   <div class="song-detail">
@@ -136,9 +135,9 @@
                     this.view = viewName
                 },
                 getSongs() {
-                  axios.get('http://localhost:3000/song')
+                  axios.get('http://blocks-server.senecamanu.com/song')
                   .then(res => {
-                   res.data.forEach(song => this.songs.push(song))
+                    res.data.forEach(song => this.songs.push(song))
                   })
                   .catch(err => {
                     console.log(err.response)
