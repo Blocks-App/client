@@ -8,7 +8,7 @@ let audioPlayTemplate = `
 Vue.component('audio-play-component', {
 
     template : audioPlayTemplate,
-    props: ['changeView'],
+    // props: ['changeView'],
     data() {
         return {
             message: 'Audio Play'

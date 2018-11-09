@@ -10,28 +10,74 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/main.css">
-    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
-<body>
-    <div id="app"> 
-        
-        <navbar-component :change-view="changeView"></navbar-component>
-
-        <main-component 
-            v-if="view == 'main'"
-            :change-view="changeView">
-        </main-component>
-
-        <audio-play-component 
-            v-if="view == 'audioPlay'" 
-            :change-view="changeView">
-        </audio-play-component>
-        
-    </div> 
-
+<body >
+  <div id="app">
+      <div> 
+          <navbar-component :change-view="changeView"></navbar-component>
+  
+          <main-component 
+              v-if="view == 'main'"
+              :change-view="changeView">
+          </main-component>
+  
+          <audio-play-component 
+              v-if="view == 'audioPlay'" 
+              :change-view="changeView">
+          </audio-play-component>
+          <audio-block-component :change-view="changeView" v-if="view=='block'">
+  
+          </audio-block-component>
+      </div> 
+      <!--songs space-->
+      <div class="container-main">
+        <div class="access-bar-left flex">
+          <div id="nav-bar" class="nav-bar">
+            <div>
+              <h5>Blocks</h5>
+            </div>
+            <div>
+              <p>Whats New</p>
+            </div>
+            <div>
+              <p>Top 10</p>
+            </div>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search" v-model="searchSong">
+          </form>
+          </div>
+        </div>
+        <div class="main-space-right" >
+          <div class="container-fluid">
+              <div class="row">
+                <div class="song col-lg-3 col-md-4 col-sm-6 mr-5 ml-5 mt-3 mb-3" v-for="song in filteredSongs">
+                  {{song}}
+                  <div class="song-detail">
+                    <header ></header>
+                  </div>
+                  <div class="song-detail">
+                    <header>artist</header>
+                  </div>
+                  <div class="song-detail">
+                  
+                  </div>
+                  <i class="far fa-file-audio"></i>
+                  <i class="far fa-3x fa-pause-circle" v-if="seen" v-on:click="seen = !seen"></i>
+                  <i class="far fa-3x fa-play-circle" v-if="!seen" v-on:click="seen = !seen"></i>
+                </div>
+              </div>
+            </div>
+            <header>{{filteredSongs}}</header>
+            <header>{{searchSong}}</header>
+      
+          </div>
+    </div>
+  </div>
+    
     <!-- additional scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -41,7 +87,7 @@
     <script src="components/navbar.js"></script>
     <script src="components/main.js"></script>
     <script src="components/audioplay.js"></script>
-    
+    <script src="components/audioBlock.js"></script>
     <!-- vue instance -->
     <script>
         const server = axios.create({ baseURL:'http://localhost:3000' })
@@ -52,24 +98,48 @@
             el : '#app',
             data : {
                 view : 'audioPlay',
-
+                searchSong:'',
+                songs: [{
+                  title:'hey jude',
+                  artist: 'beatles',
+                  rating: 5
+                },{
+                  title:'i dont wanna miss a thing',
+                  artist: 'aerosmith',
+                  rating: 5
+                }],
+                filteredSongs:[],
+                seen:false
             },
             computed: {
-                
+              filteredSongs: function () {
+               return this.searchSong
+              //  .filter((song) => {
+                // return song.title.toLowerCase().indexOf(this.searchSong.toLowerCase()) > -1
+              //  }) 
+              }
             },
-            created () {
+            beforeMount () {
 
             },
             methods: {
+                
                 changeView(viewName) {
                     this.view = viewName
                 }
-
+                // getSongs() {
+                //   axios.get('http://....')
+                //   .then(res => {
+                //    console.log(res)
+                //   })
+                //   .catch(err => {
+                //     console.log(err.response)
+                //   })
+                // }
             },
             watch: {
                 
             }
-
         })
     </script>
 </body>

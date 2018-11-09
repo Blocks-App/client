@@ -18,6 +18,11 @@ Vue.component('mainComponent', {
     created() {
        
     },
+    computed: {
+      filteredSongs : function () {
+        return this.songs.filter(song=>  song.title.toLowerCase().indexOf(this.searchSong.toLowerCase()) > -1)
+      }
+    },
     methods: {
      
     },

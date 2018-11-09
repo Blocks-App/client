@@ -1,0 +1,36 @@
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  display: block;
+}
+* {
+  margin: 0;
+}
+.flex{
+  flex: 0 0 auto
+}
+.container-main {
+  display: flex;
+  height:100%;
+  background-color: rgba(122, 173, 255);
+  z-index: 1;
+}
+.access-bar-left {
+  width: 25%;
+  height: 100%;
+  padding: 0 10px;
+
+}
+#nav-bar {
+}
+.main-space-right {
+  width: 75%;
+  background-color: #f1f1f1;
+  height: 100%;
+  position: relative;
+}
+.song {
+  height: 300px;
+  min-width:300px;
+  background-color: rgb(162, 162, 201)
+}
