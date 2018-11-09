@@ -20,59 +20,68 @@
       <div> 
           <navbar-component :change-view="changeView"></navbar-component>
   
-          <main-component 
+          <!-- <main-component 
               v-if="view == 'main'"
               :change-view="changeView">
-          </main-component>
+          </main-component> -->
   
-          <audio-play-component 
+          <!-- <audio-play-component 
               v-if="view == 'audioPlay'" 
               :change-view="changeView">
           </audio-play-component>
           <audio-block-component :change-view="changeView" v-if="view=='block'">
   
-          </audio-block-component>
+          </audio-block-component> -->
       </div> 
       <!--songs space-->
       <div class="container-main">
+      <!--left side space-->
         <div class="access-bar-left flex">
           <div id="nav-bar" class="nav-bar">
             <div>
-              <h5>Blocks</h5>
+                <h5>Search Song Title</h5>
+              </div>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" v-model="search">
+              </form>
             </div>
             <div>
-              <p>Whats New</p>
+              <h5>Whats New</h5>
             </div>
-            <div>
-              <p>Top 10</p>
+            <br>
+            <div id="uploadDiv">
+              <label for="file">Upload Song:</label>
+              <form id="formUpload">
+                <input type="file" id="file" name="file" accept="audio/*">
+                <input type="text" name="title" placeholder="song title">
+                <input type="text" name="artist" placeholder="artist">
+                <input type="text" name="genre" placeholder="genre">
+                <input type="text" name="coverUrl" placeholder="coverUrl">
+                <input type="text" name="audioUrl" placeholder="audioUrl">
+                <input type="submit" id="submitUpload">
+              </form>
             </div>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" v-model="searchSong">
-          </form>
-          </div>
+           
         </div>
+
         <div class="main-space-right" >
           <div class="container-fluid">
               <div class="row">
                 <div class="song col-lg-3 col-md-4 col-sm-6 mr-5 ml-5 mt-3 mb-3" v-for="song in filteredSongs">
-                  {{song}}
                   <div class="song-detail">
-                    <header ></header>
+                    <h3>{{song.title}}</h3>
                   </div>
                   <div class="song-detail">
-                    <header>artist</header>
+                    <h4>{{song.artist}}</h4>
                   </div>
                   <div class="song-detail">
-                  
+                    <h4>{{song.rating}}</h4>
                   </div>
-                  <i class="far fa-file-audio"></i>
                   <i class="far fa-3x fa-pause-circle" v-if="seen" v-on:click="seen = !seen"></i>
                   <i class="far fa-3x fa-play-circle" v-if="!seen" v-on:click="seen = !seen"></i>
                 </div>
               </div>
             </div>
-            <header>{{filteredSongs}}</header>
-            <header>{{searchSong}}</header>
       
           </div>
     </div>
@@ -85,7 +94,7 @@
     
     <!-- vue components -->
     <script src="components/navbar.js"></script>
-    <script src="components/main.js"></script>
+    <!-- <script src="components/main.js"></script> -->
     <script src="components/audioplay.js"></script>
     <script src="components/audioBlock.js"></script>
     <!-- vue instance -->
@@ -98,8 +107,12 @@
             el : '#app',
             data : {
                 view : 'audioPlay',
-                searchSong:'',
-                songs: [{
+                search:'',
+                songs: [],
+                seen:false
+            },
+            created () {
+              let data=[{
                   title:'hey jude',
                   artist: 'beatles',
                   rating: 5
@@ -107,23 +120,23 @@
                   title:'i dont wanna miss a thing',
                   artist: 'aerosmith',
                   rating: 5
-                }],
-                filteredSongs:[],
-                seen:false
+                }]
+                data.forEach(song=>this.songs.push(song))
             },
             computed: {
-              filteredSongs: function () {
-               return this.searchSong
-              //  .filter((song) => {
-                // return song.title.toLowerCase().indexOf(this.searchSong.toLowerCase()) > -1
-              //  }) 
+              filteredSongs() {
+               return this.songs.filter((song) => {
+                return song.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+               }) 
               }
             },
             beforeMount () {
 
             },
             methods: {
-                
+                toggleUpload (){
+                  $("#uploadDiv").toggle();
+                },
                 changeView(viewName) {
                     this.view = viewName
                 }
